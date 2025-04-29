@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiMenu, FiMoon, FiSun, FiX } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useThemeSwitcher from "../../hooks/useThemeSwitcher";
 import logoDark from "../../images/logo.png";
 import logoLight from "../../images/logo_dark.png";
@@ -15,7 +15,6 @@ interface NavLink {
 const AppHeader = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [activeTheme, setTheme] = useThemeSwitcher();
-  const location = useLocation();
 
   const toggleMenu = (): void => {
     setShowMenu(!showMenu);
@@ -27,10 +26,6 @@ const AppHeader = () => {
     { path: "/about", label: "About Me", ariaLabel: "About Me" },
     { path: "/contact", label: "Contact", ariaLabel: "Contact" },
   ];
-
-  const filteredLinks = navLinks.filter(
-    (link) => link.path !== location.pathname
-  );
 
   return (
     <motion.nav
@@ -95,7 +90,7 @@ const AppHeader = () => {
               : "hidden"
           }
         >
-          {filteredLinks.map((link, index) => (
+          {navLinks.map((link, index) => (
             <Link
               key={link.path}
               to={link.path}
@@ -113,7 +108,7 @@ const AppHeader = () => {
 
         {/* Header links large screen */}
         <div className="font-general-medium hidden m-0 sm:ml-4 mt-5 sm:mt-3 sm:flex p-5 sm:p-0 justify-center items-center shadow-lg sm:shadow-none">
-          {filteredLinks.map((link) => (
+          {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
