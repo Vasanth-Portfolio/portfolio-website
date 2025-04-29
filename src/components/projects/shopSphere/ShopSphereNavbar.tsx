@@ -12,13 +12,16 @@ export const ShopSphereNavbar = () => {
             </span>
           </div>
           <div className="flex items-center space-x-4">
-           
-            <Button variant="outline" size="sm">
-              Sign In
-            </Button>
-            <Button variant="primary" size="sm">
-              Cart (0)
-            </Button>
+            <Button
+              title="Sign In"
+              type="submit"
+              aria-label="Sign In"
+            />
+             <Button
+              title="Cart (0)"
+              type="submit"
+              aria-label="Cart (0)"
+            />
           </div>
         </div>
       </div>
