@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import SingleProjectContext from "../../context/SingleProjectContext";
 import TodoView from "./todo/TodoView";
+import ShopSphereView from "./shopSphere/ShopSphereView";
 
 interface CompanyInfoItem {
   id: number;
@@ -10,7 +11,7 @@ interface CompanyInfoItem {
 
 const ProjectInfo = () => {
   const context = useContext(SingleProjectContext);
-  
+
   if (!context || !context.singleProjectData) {
     return (
       <div className="text-center py-10">
@@ -26,15 +27,17 @@ const ProjectInfo = () => {
   const projectInfo = singleProjectData.ProjectInfo;
 
   const renderLink = (info: CompanyInfoItem) => {
-    const isLink = ["Website", "Phone", "Repository", "Demo"].includes(info.title);
+    const isLink = ["Website", "Phone", "Repository", "Demo"].includes(
+      info.title
+    );
     const isEmail = info.title === "Email";
-    const href = isEmail 
+    const href = isEmail
       ? `mailto:${info.details}`
       : isLink
-      ? info.details.startsWith('http') 
-        ? info.details 
+      ? info.details.startsWith("http")
+        ? info.details
         : `https://${info.details}`
-      : '#';
+      : "#";
 
     return (
       <a
@@ -102,21 +105,20 @@ const ProjectInfo = () => {
             ))}
           </div>
         </div>
-
-     
       </div>
 
       {/* Project details - TodoView */}
       <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0">
-        <TodoView />
-        
+        {singleProjectData.id === 1 && <TodoView />}
+
+        {singleProjectData.id === 2 && <ShopSphereView />}
         {/* Social Sharing */}
         {projectInfo.SocialSharing && projectInfo.SocialSharing.length > 0 && (
           <div className="mt-10">
-            <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-4">
+            <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-4 text-center">
               {projectInfo.SocialSharingHeading}
             </h2>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               {projectInfo.SocialSharing.map((social) => (
                 <a
                   key={social.id}

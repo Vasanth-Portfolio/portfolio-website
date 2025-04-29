@@ -177,23 +177,23 @@ const productivityPro: SingleProjectData = {
       {
         id: 1,
         name: 'GitHub Repo',
-        url: 'https://github.com/yourrepo/todo-pro',
+        url: 'https://github.com/Vasanth-Portfolio',
       },
       {
         id: 2,
         name: 'Case Study',
         url: 'https://medium.com/yourblog/todo-case-study',
       },
-      {
-        id: 3,
-        name: 'Live Demo',
-        url: 'https://demo.productivitypro.app',
-      },
-      {
-        id: 4,
-        name: 'Product Hunt',
-        url: 'https://producthunt.com/products/productivity-pro',
-      },
+      // {
+      //   id: 3,
+      //   name: 'Live Demo',
+      //   url: 'https://demo.productivitypro.app',
+      // },
+      // {
+      //   id: 4,
+      //   name: 'Product Hunt',
+      //   url: 'https://producthunt.com/products/productivity-pro',
+      // },
     ],
   },
   RelatedProject: {
