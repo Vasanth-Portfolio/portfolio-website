@@ -2,6 +2,7 @@ import { useContext } from "react";
 import SingleProjectContext from "../../context/SingleProjectContext";
 import TodoView from "./todo/TodoView";
 import ShopSphereView from "./shopSphere/ShopSphereView";
+import ExpenseListPage from "./expenseTracker/ExpenseListPage";
 
 interface CompanyInfoItem {
   id: number;
@@ -112,6 +113,7 @@ const ProjectInfo = () => {
         {singleProjectData.id === 1 && <TodoView />}
 
         {singleProjectData.id === 2 && <ShopSphereView />}
+        {singleProjectData.id === 3 && <ExpenseListPage />}
         {/* Social Sharing */}
         {projectInfo.SocialSharing && projectInfo.SocialSharing.length > 0 && (
           <div className="mt-10">
