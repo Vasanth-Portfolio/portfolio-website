@@ -1,11 +1,14 @@
 export interface Todo {
-  _id: string; // Changed from id to match MongoDB
-  text: string;
+  id: number;
+  title: string;
   completed: boolean;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  error?: string;
+}
 export type TodoAction =
   | { type: "ADD"; text: string }
   | { type: "TOGGLE"; id: number }

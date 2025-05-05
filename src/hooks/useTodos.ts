@@ -1,128 +1,131 @@
-import { useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
-import { Todo } from '../components/projects/todo/types';
-
-const API_URL = import.meta.env.VITE_API_URL + '/api/todos';
+import { useState } from 'react';
+import {
+  useGetTodosQuery,
+  useAddTodoMutation,
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+} from '../redux/todoApi';
+import type { Todo } from '../components/projects/todo/types';
 
 type TodoError = {
   message: string;
   status?: number;
+  code?: string;
 };
 
-type ApiResponse<T> = {
-  success: boolean;
-  data: T;
-  count?: number;
-  error?: string;
+type TodoActions = {
+  addTodo: (title: string) => Promise<void>;
+  toggleTodo: (id: number) => Promise<void>;
+  deleteTodo: (id: number) => Promise<void>;
+  refetch: () => void;
+  clearError: () => void; 
 };
 
-export const useTodos = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<TodoError | null>(null);
+export const useTodos = (): {
+  todos: Todo[];
+  loading: boolean;
+  error: TodoError | null;
+  actions: TodoActions;
+} => {
+  const [localError, setLocalError] = useState<TodoError | null>(null);
+  
+  // RTK Query hooks
+  const {
+    data: todos = [],
+    isLoading,
+    isFetching,
+    refetch,
+    error: fetchError,
+  } = useGetTodosQuery();
+  
+  const [addTodoMutation] = useAddTodoMutation();
+  const [updateTodoMutation] = useUpdateTodoMutation();
+  const [deleteTodoMutation] = useDeleteTodoMutation();
 
-  const fetchTodos = async () => {
-    setLoading(true);
+  const handleError = (error: unknown): TodoError => {
+    const defaultError: TodoError = {
+      message: 'An unknown error occurred',
+      status: 500,
+    };
+
+    if (typeof error !== 'object' || error === null) {
+      return defaultError;
+    }
+
+    if ('status' in error) {
+      const rtkError = error as {
+        status: number;
+        data?: { error?: string; message?: string; code?: string };
+      };
+
+      return {
+        message: rtkError.data?.error || rtkError.data?.message || defaultError.message,
+        status: rtkError.status,
+        code: rtkError.data?.code,
+      };
+    }
+
+    if (error instanceof Error) {
+      return {
+        ...defaultError,
+        message: error.message,
+      };
+    }
+
+    return defaultError;
+  };
+
+  const addTodo = async (title: string): Promise<void> => {
     try {
-      const { data } = await axios.get<ApiResponse<Todo[]>>(API_URL);
-      
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to fetch todos');
+      if (!title.trim()) {
+        throw new Error('Todo title cannot be empty');
       }
-
-      setTodos(data.data || []);
-      setError(null);
-    } catch (err) {
-      handleApiError(err as AxiosError, 'Failed to fetch todos');
-    } finally {
-      setLoading(false);
+      await addTodoMutation({ title: title.trim() }).unwrap();
+      setLocalError(null);
+    } catch (error) {
+      setLocalError(handleError(error));
     }
   };
 
-  const handleApiError = (error: AxiosError, fallbackMessage: string) => {
-    const errorData = error.response?.data as ApiResponse<never>;
-    setError({
-      message: errorData?.error || fallbackMessage,
-      status: error.response?.status
-    });
-    console.error('API Error:', error);
-  };
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
-  const addTodo = async (text: string) => {
+  const toggleTodo = async (id: number): Promise<void> => {
     try {
-      const { data } = await axios.post<ApiResponse<Todo>>(API_URL, { 
-        text: text.trim() 
-      });
-
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to add todo');
-      }
-
-      setTodos(prev => [data.data, ...prev]);
-    } catch (err) {
-      handleApiError(err as AxiosError, 'Failed to add todo');
-    }
-  };
-
-  const toggleTodo = async (id: string) => {
-    if (!id) {
-      setError({
-        message: 'Invalid todo ID',
-        status: 400
-      });
-      return;
-    }
-
-    try {
-      const todo = todos.find(t => t._id === id);
+      const todo = todos.find(t => t.id === id);
       if (!todo) {
         throw new Error('Todo not found');
       }
-
-      const { data } = await axios.put<ApiResponse<Todo>>(
-        `${API_URL}/${id}`,
-        { completed: !todo.completed }
-      );
-
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to update todo');
-      }
-
-      setTodos(prev => prev.map(t => t._id === id ? data.data : t));
-    } catch (err) {
-      handleApiError(err as AxiosError, 'Failed to update todo');
+      await updateTodoMutation({ 
+        id, 
+        completed: !todo.completed 
+      }).unwrap();
+      setLocalError(null);
+    } catch (error) {
+      setLocalError(handleError(error));
     }
   };
 
-  const deleteTodo = async (id: string) => {
+  const deleteTodo = async (id: number): Promise<void> => {
     try {
-      if (!id) {
-        throw new Error('Invalid todo ID');
-      }
-  
-      await axios.delete(`${API_URL}/${id}`); // <- no need to read data
-  
-      // If no error, we assume delete was successful
-      setTodos(prev => prev.filter(todo => todo._id !== id));
-    } catch (err) {
-      handleApiError(err as AxiosError, 'Failed to delete todo');
+      await deleteTodoMutation(id).unwrap();
+      setLocalError(null); 
+    } catch (error) {
+      setLocalError(handleError(error));
     }
   };
-  
 
-  return { 
-    todos, 
-    loading, 
+  const clearError = () => setLocalError(null);
+
+  const error = fetchError ? handleError(fetchError) : localError;
+
+  return {
+    todos,
+    loading: isLoading || isFetching,
     error,
     actions: {
       addTodo,
       toggleTodo,
       deleteTodo,
-      refetch: fetchTodos
-    }
+      refetch,
+      clearError, 
+    },
   };
 };

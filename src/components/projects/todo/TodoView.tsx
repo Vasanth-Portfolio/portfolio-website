@@ -24,10 +24,30 @@ export default function TodoView() {
   ), [todos]);
 
   useEffect(() => {
-    if (todos.length > 0) {
+    if (todos.length > 0 && !hasInitialData) {
       setHasInitialData(true);
     }
-  }, [todos.length]);
+  }, [todos.length, hasInitialData]);
+
+  if (error) {
+    return (
+      <div className="max-w-md mx-auto p-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+          <strong className="font-bold">Error! </strong>
+          <span className="block sm:inline">{error.message}</span>
+          <button
+            onClick={() => {
+              actions.clearError?.();
+              actions.refetch();
+            }}
+            className="absolute top-1 right-1 px-2 py-1 text-red-700 hover:text-red-900"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading && !hasInitialData) {
     return (
@@ -37,42 +57,48 @@ export default function TodoView() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="max-w-md mx-auto p-4">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          Error: {error.message}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <main className="max-w-md mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-6">Todo App</h1>
       
-      <TodoForm onAdd={actions.addTodo} />
+      <TodoForm 
+        onAdd={actions.addTodo} 
+        isAdding={loading && !hasInitialData}
+      />
       
-      <FilterButtons currentFilter={filter} onFilterChange={setFilter} />
+      <FilterButtons 
+        currentFilter={filter} 
+        onFilterChange={setFilter} 
+      />
       
-      {/* Improved empty state */}
-      {!loading && todos.length === 0 ? (
-        <div className="text-center py-8">
-          <p className="text-lg text-gray-600">Your todo list is empty</p>
-          <p className="text-sm text-gray-500">Add your first task above</p>
-        </div>
-      ) : (
-        <>
-          <TodoList 
-            todos={filteredTodos} 
-            onToggle={actions.toggleTodo} 
-            onDelete={actions.deleteTodo} 
-          />
-          <div className="text-sm text-gray-500 mt-4">
-            {remainingCount} {remainingCount === 1 ? 'item' : 'items'} left
+      <div className={`transition-opacity ${loading ? 'opacity-50' : 'opacity-100'}`}>
+        {todos.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              {hasInitialData ? 'No todos match your filter' : 'Your todo list is empty'}
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {hasInitialData ? 'Try a different filter' : 'Add your first task above'}
+            </p>
           </div>
-        </>
-      )}
+        ) : (
+          <>
+            <TodoList 
+              todos={filteredTodos} 
+              onToggle={actions.toggleTodo} 
+              onDelete={actions.deleteTodo} 
+            />
+            <div className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+              {remainingCount} {remainingCount === 1 ? 'item' : 'items'} left
+              {filter !== 'all' && (
+                <span className="ml-2">
+                  (filtered from {todos.length} total)
+                </span>
+              )}
+            </div>
+          </>
+        )}
+      </div>
     </main>
   );
 }
