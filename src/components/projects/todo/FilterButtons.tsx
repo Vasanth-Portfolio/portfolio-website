@@ -1,13 +1,13 @@
-type TodoFilter = 'all' | 'active' | 'completed';
+import type { TodoFilter } from './TodoView';
 
 interface FilterButtonsProps {
-  currentFilter: TodoFilter;  // Renamed from filter for clarity
-  onFilterChange: (filter: TodoFilter) => void;  // Renamed from setFilter
+  currentFilter: TodoFilter;
+  onFilterChange: (filter: TodoFilter) => void;
 }
 
-export const FilterButtons = ({ 
-  currentFilter, 
-  onFilterChange 
+export const FilterButtons = ({
+  currentFilter,
+  onFilterChange,
 }: FilterButtonsProps) => {
   const filters = [
     { label: 'All', value: 'all' as const },
@@ -29,6 +29,8 @@ export const FilterButtons = ({
             currentFilter === f.value
               ? 'bg-blue-500 text-white'
               : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+          } ${
+            'cursor-pointer'
           }`}
           aria-pressed={currentFilter === f.value}
         >

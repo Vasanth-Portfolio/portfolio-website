@@ -1,38 +1,38 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface TodoFormProps {
-  onAdd: (text: string) => void;
+  onAdd: (title: string) => Promise<void>;
+  isAdding?: boolean;
 }
 
-export const TodoForm = ({ onAdd }: TodoFormProps) => {
-  const [text, setText] = useState('');
+export function TodoForm({ onAdd, isAdding }: TodoFormProps) {
+  const [title, setTitle] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (text.trim()) {
-      onAdd(text);
-      setText('');
+    if (title.trim()) {
+      await onAdd(title.trim());
+      setTitle('');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
-      <div className="flex shadow-sm rounded-md">
+    <form onSubmit={handleSubmit} className="mb-4">
+      <div className="flex">
         <input
           type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="What needs to be done?"
-          className="flex-grow px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          aria-label="Add new todo"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="flex-1 p-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Add a new task..."
         />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 disabled:bg-blue-300"
         >
-          Add
+          {isAdding ? 'Adding...' : 'Add'}
         </button>
       </div>
     </form>
   );
-};
+}
