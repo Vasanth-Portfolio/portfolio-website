@@ -6,7 +6,6 @@ import Image5 from '../images/web-project-1.jpg';
 import Image6 from '../images/ui-project-2.jpg';
 import { JSX, ReactElement } from 'react';
 
-// Interface definitions remain the same
 interface ProjectHeader {
   title: string;
   publishDate: string;
@@ -66,14 +65,13 @@ interface RelatedProject {
 }
 
 export interface SingleProjectData {
-  id: number; // Added ID field
+  id: number;
   ProjectHeader: ProjectHeader;
   ProjectImages: ProjectImage[];
   ProjectInfo: ProjectInfo;
   RelatedProject: RelatedProject;
 }
 
-// Create multiple project data objects
 const productivityPro: SingleProjectData = {
   id: 1,
   ProjectHeader: {
@@ -114,7 +112,7 @@ const productivityPro: SingleProjectData = {
       {
         id: 3,
         title: 'Repository',
-        details: 'github.com/yourrepo/todo-pro',
+        details: 'github.com/Vasanth-Portfolio/todo-pro',
       },
       {
         id: 4,
@@ -177,23 +175,18 @@ const productivityPro: SingleProjectData = {
       {
         id: 1,
         name: 'GitHub Repo',
-        url: 'https://github.com/Vasanth-Portfolio',
+        url: 'https://github.com/Vasanth-Portfolio/todo-pro',
       },
       {
         id: 2,
         name: 'Case Study',
-        url: 'https://medium.com/yourblog/todo-case-study',
+        url: 'https://vasanth.tech/blog/todo-case-study',
       },
-      // {
-      //   id: 3,
-      //   name: 'Live Demo',
-      //   url: 'https://demo.productivitypro.app',
-      // },
-      // {
-      //   id: 4,
-      //   name: 'Product Hunt',
-      //   url: 'https://producthunt.com/products/productivity-pro',
-      // },
+      {
+        id: 3,
+        name: 'Live Demo',
+        url: 'https://vasanth.website/productivitypro',
+      },
     ],
   },
   RelatedProject: {
@@ -214,11 +207,6 @@ const productivityPro: SingleProjectData = {
         title: 'Focus Timer',
         img: Image6,
       },
-      {
-        id: 4,
-        title: 'Goal Tracker',
-        img: Image3,
-      },
     ],
   },
 };
@@ -226,7 +214,7 @@ const productivityPro: SingleProjectData = {
 const eCommercePlatform: SingleProjectData = {
   id: 2,
   ProjectHeader: {
-    title: 'E-Commerce Platform',
+    title: 'ShopSphere E-Commerce',
     publishDate: 'Jan 20, 2025',
     tags: 'Full Stack / E-Commerce',
   },
@@ -263,7 +251,7 @@ const eCommercePlatform: SingleProjectData = {
       {
         id: 3,
         title: 'Repository',
-        details: 'github.com/yourrepo/shopsphere',
+        details: 'github.com/Vasanth-Portfolio/shopsphere',
       },
       {
         id: 4,
@@ -320,12 +308,12 @@ const eCommercePlatform: SingleProjectData = {
       {
         id: 1,
         name: 'GitHub Repo',
-        url: 'https://github.com/yourrepo/shopsphere',
+        url: 'https://github.com/Vasanth-Portfolio/shopsphere',
       },
       {
         id: 2,
         name: 'Live Demo',
-        url: 'https://demo.shopsphere.app',
+        url: 'https://vasanth.website/shopsphere',
       },
     ],
   },
@@ -354,7 +342,7 @@ const eCommercePlatform: SingleProjectData = {
 const expenseTracker: SingleProjectData = {
   id: 3,
   ProjectHeader: {
-    title: 'Expense Tracker',
+    title: 'MoneyMind Expense Tracker',
     publishDate: 'Apr 10, 2025',
     tags: 'Full Stack / Finance App',
   },
@@ -391,7 +379,7 @@ const expenseTracker: SingleProjectData = {
       {
         id: 3,
         title: 'Repository',
-        details: 'github.com/yourrepo/expense-tracker',
+        details: 'github.com/Vasanth-Portfolio/expense-tracker',
       },
       {
         id: 4,
@@ -453,12 +441,12 @@ const expenseTracker: SingleProjectData = {
       {
         id: 1,
         name: 'GitHub Repo',
-        url: 'https://github.com/yourrepo/expense-tracker',
+        url: 'https://github.com/Vasanth-Portfolio/expense-tracker',
       },
       {
         id: 2,
         name: 'Live Demo',
-        url: 'https://moneymind.demo.app',
+        url: 'https://vasanth.website/moneymind',
       },
     ],
   },
@@ -489,6 +477,7 @@ export const allProjects: SingleProjectData[] = [
   eCommercePlatform,
   expenseTracker
 ];
+
 export function getProjectById(id: number): SingleProjectData {
   const project = allProjects.find(project => project.id === id);
   
