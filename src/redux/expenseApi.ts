@@ -58,7 +58,7 @@ export const expenseApi = createApi({
     }),
 
     getBalance: builder.query<number, void>({
-      query: () => "/api/expense/balance",
+      query: () => "/api/expense",
       transformResponse: (response: { success: boolean; balance: number }) => response.balance,
     }),
   }),
