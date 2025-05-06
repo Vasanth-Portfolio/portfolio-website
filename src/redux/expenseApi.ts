@@ -1,25 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Expense } from "../components/projects/expenseTracker/types";
 
-
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:10000';
 
 export const expenseApi = createApi({
   reducerPath: "expenseApi",
-  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: API_URL,
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
+      return headers;
+    },
+  }),
   tagTypes: ["Expense"],
   endpoints: (builder) => ({
-    // Get all expenses
     getExpenses: builder.query<Expense[], void>({
       query: () => "/api/expense",
-      transformResponse: (response: { success: boolean; data: Expense[] }) => {
-        if (import.meta.env.MODE === "development") {
-          console.groupCollapsed("getExpenses API Response");
-          console.log("Data:", response.data);
-          console.groupEnd();
-        }
-        return response.data;
-      },
+      transformResponse: (response: { success: boolean; data: Expense[] }) => response.data,
       providesTags: (result) =>
         result
           ? [...result.map(({ id }) => ({ type: "Expense" as const, id })), "Expense"]

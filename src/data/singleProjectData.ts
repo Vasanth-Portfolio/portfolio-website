@@ -351,11 +351,144 @@ const eCommercePlatform: SingleProjectData = {
   },
 };
 
+const expenseTracker: SingleProjectData = {
+  id: 3,
+  ProjectHeader: {
+    title: 'Expense Tracker',
+    publishDate: 'Apr 10, 2025',
+    tags: 'Full Stack / Finance App',
+  },
+  ProjectImages: [
+    {
+      id: 1,
+      title: 'Expense Dashboard',
+      img: Image1,
+    },
+    {
+      id: 2,
+      title: 'Transaction History',
+      img: Image2,
+    },
+    {
+      id: 3,
+      title: 'Mobile Expense Tracking',
+      img: Image3,
+    },
+  ],
+  ProjectInfo: {
+    ClientHeading: 'Project Overview',
+    CompanyInfo: [
+      {
+        id: 1,
+        title: 'Project Name',
+        details: 'MoneyMind',
+      },
+      {
+        id: 2,
+        title: 'Category',
+        details: 'Personal Finance',
+      },
+      {
+        id: 3,
+        title: 'Repository',
+        details: 'github.com/yourrepo/expense-tracker',
+      },
+      {
+        id: 4,
+        title: 'Tech Stack',
+        details: 'React, TypeScript, Express, MongoDB',
+      },
+    ],
+    ObjectivesHeading: 'Project Goals',
+    ObjectivesDetails:
+      'Develop an intuitive expense tracking application with comprehensive financial insights, visualization tools, and multi-device synchronization to help users manage their finances effectively.',
+    Technologies: [
+      {
+        title: 'Core Technologies',
+        techs: [
+          'React 18',
+          'TypeScript',
+          'Express.js',
+          'MongoDB',
+          'Tailwind CSS',
+          'Chart.js'
+        ],
+      },
+      {
+        title: 'Additional Features',
+        techs: [
+          'JWT Authentication',
+          'Data Export (CSV/PDF)',
+          'Recurring Transactions',
+          'Budget Alerts',
+          'Responsive Design'
+        ],
+      },
+    ],
+    ProjectDetailsHeading: 'Key Features',
+    ProjectDetails: [
+      {
+        id: 1,
+        details:
+          'Transaction Management: Implemented a robust system for adding, editing, and categorizing income/expense transactions with support for attachments and notes.',
+      },
+      {
+        id: 2,
+        details:
+          'Financial Dashboard: Created interactive charts using Chart.js to visualize spending patterns, category breakdowns, and monthly comparisons.',
+      },
+      {
+        id: 3,
+        details:
+          'Budget Tracking: Developed a budget management system with alerts and progress tracking against user-defined financial goals.',
+      },
+      {
+        id: 4,
+        details:
+          'Multi-Device Sync: Built a secure synchronization system using JWT authentication and RESTful APIs to ensure data consistency across devices.',
+      },
+    ],
+    SocialSharingHeading: 'Project Links',
+    SocialSharing: [
+      {
+        id: 1,
+        name: 'GitHub Repo',
+        url: 'https://github.com/yourrepo/expense-tracker',
+      },
+      {
+        id: 2,
+        name: 'Live Demo',
+        url: 'https://moneymind.demo.app',
+      },
+    ],
+  },
+  RelatedProject: {
+    title: 'More Finance Tools',
+    Projects: [
+      {
+        id: 1,
+        title: 'Investment Tracker',
+        img: Image4,
+      },
+      {
+        id: 2,
+        title: 'Bill Reminder',
+        img: Image5,
+      },
+      {
+        id: 3,
+        title: 'Tax Calculator',
+        img: Image6,
+      },
+    ],
+  },
+};
+
 export const allProjects: SingleProjectData[] = [
   productivityPro,
   eCommercePlatform,
+  expenseTracker
 ];
-
 export function getProjectById(id: number): SingleProjectData {
   const project = allProjects.find(project => project.id === id);
   
