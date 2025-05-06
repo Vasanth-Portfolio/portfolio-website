@@ -12,7 +12,7 @@ export const expenseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Expense"],
+  tagTypes: ["Expense", "Balance"],
   endpoints: (builder) => ({
     getExpenses: builder.query<Expense[], void>({
       query: () => "/api/expense",
@@ -20,7 +20,7 @@ export const expenseApi = createApi({
       providesTags: (result) =>
         result
           ? [...result.map(({ id }) => ({ type: "Expense" as const, id })), "Expense"]
-          : ["Expense"],
+          : ["Expense", "Balance"],
     }),
 
     getExpense: builder.query<Expense, number>({
@@ -36,7 +36,7 @@ export const expenseApi = createApi({
         body,
       }),
       transformResponse: (response: { success: boolean; data: Expense }) => response.data,
-      invalidatesTags: ["Expense"],
+      invalidatesTags: ["Expense", "Balance"],
     }),
 
     updateExpense: builder.mutation<Expense, Partial<Expense> & Pick<Expense, 'id'>>({
@@ -58,9 +58,10 @@ export const expenseApi = createApi({
     }),
 
     getBalance: builder.query<number, void>({
-      query: () => "/api/expense",
-      transformResponse: (response: { success: boolean; balance: number }) => response.balance,
-    }),
+        query: () => "/api/expense", 
+        transformResponse: (response: { success: boolean; balance: number }) => response.balance,
+        providesTags: ["Balance"], 
+      }),
   }),
 });
 

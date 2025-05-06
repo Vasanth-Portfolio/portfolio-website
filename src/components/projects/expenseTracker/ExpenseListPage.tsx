@@ -4,7 +4,7 @@ import { Pie } from 'react-chartjs-2';
 import { 
   useGetExpensesQuery,
   useAddExpenseMutation,
-  useDeleteExpenseMutation,
+//   useDeleteExpenseMutation,
   useGetBalanceQuery
 } from '../../../redux/expenseApi';
 
@@ -15,7 +15,7 @@ const ExpenseListPage = () => {
   const { data: transactionsData, isLoading, refetch } = useGetExpensesQuery();
   const { data: balanceData } = useGetBalanceQuery();
   const [addExpense] = useAddExpenseMutation();
-  const [deleteExpense] = useDeleteExpenseMutation();
+//   const [deleteExpense] = useDeleteExpenseMutation();
 
   const transactions = transactionsData || [];
   const balance = balanceData || 0;
@@ -53,14 +53,14 @@ const ExpenseListPage = () => {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteExpense(id).unwrap();
-      refetch();
-    } catch (error) {
-      console.error('Error deleting transaction:', error);
-    }
-  };
+//   const handleDelete = async (id: number) => {
+//     try {
+//       await deleteExpense(id).unwrap();
+//       refetch();
+//     } catch (error) {
+//       console.error('Error deleting transaction:', error);
+//     }
+//   };
 
   const getCategoryData = () => {
     const categories = Array.from(new Set(transactions.map(t => t.category)));
@@ -91,26 +91,39 @@ const ExpenseListPage = () => {
   };
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return (
+      <div className="text-center py-10">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mx-auto"></div>
+        <p className="font-general-regular text-lg text-primary-dark dark:text-primary-light mt-4">
+          Loading expense data...
+        </p>
+      </div>
+    );
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Expense Tracker</h1>
+      <h1 className="font-general-regular text-3xl font-bold text-center text-secondary-dark dark:text-secondary-light mb-8">
+        Expense Tracker
+      </h1>
       
-      <div className="bg-blue-100 p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-2xl font-semibold mb-2">Current Balance</h2>
-        <p className={`text-4xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+      <div className="bg-indigo-100 dark:bg-indigo-900 p-6 rounded-lg shadow-md mb-8">
+        <h2 className="font-general-regular text-2xl font-semibold text-secondary-dark dark:text-secondary-light mb-2">
+          Current Balance
+        </h2>
+        <p className={`font-general-regular text-4xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
           ${balance.toFixed(2)}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <h2 className="text-2xl font-semibold mb-4">Add Transaction</h2>
-          <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="font-general-regular text-2xl font-semibold text-secondary-dark dark:text-secondary-light mb-4">
+            Add Transaction
+          </h2>
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-ternary-dark p-6 rounded-lg shadow-md">
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="description">
+              <label className="font-general-regular block text-primary-dark dark:text-ternary-light mb-2" htmlFor="description">
                 Description
               </label>
               <input
@@ -119,13 +132,13 @@ const ExpenseListPage = () => {
                 name="description"
                 value={newTransaction.description}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="font-general-regular w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
                 required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="amount">
+              <label className="font-general-regular block text-primary-dark dark:text-ternary-light mb-2" htmlFor="amount">
                 Amount
               </label>
               <input
@@ -134,14 +147,14 @@ const ExpenseListPage = () => {
                 name="amount"
                 value={newTransaction.amount || ''}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="font-general-regular w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
                 step="0.01"
                 required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="type">
+              <label className="font-general-regular block text-primary-dark dark:text-ternary-light mb-2" htmlFor="type">
                 Type
               </label>
               <select
@@ -149,7 +162,7 @@ const ExpenseListPage = () => {
                 name="type"
                 value={newTransaction.type}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="font-general-regular w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
               >
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
@@ -157,7 +170,7 @@ const ExpenseListPage = () => {
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="category">
+              <label className="font-general-regular block text-primary-dark dark:text-ternary-light mb-2" htmlFor="category">
                 Category
               </label>
               <input
@@ -166,13 +179,13 @@ const ExpenseListPage = () => {
                 name="category"
                 value={newTransaction.category}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="font-general-regular w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
                 required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2" htmlFor="date">
+              <label className="font-general-regular block text-primary-dark dark:text-ternary-light mb-2" htmlFor="date">
                 Date
               </label>
               <input
@@ -181,13 +194,14 @@ const ExpenseListPage = () => {
                 name="date"
                 value={newTransaction.date}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                min={new Date().toISOString().split('T')[0]}
+                className="font-general-regular w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+              className="font-general-regular w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors duration-300"
             >
               Add Transaction
             </button>
@@ -195,31 +209,32 @@ const ExpenseListPage = () => {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-4">Transaction History</h2>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="font-general-regular text-2xl font-semibold text-secondary-dark dark:text-secondary-light mb-4">
+            Transaction History
+          </h2>
+          <div className="bg-white dark:bg-ternary-dark p-6 rounded-lg shadow-md">
             {transactions.length === 0 ? (
-              <p className="text-gray-500">No transactions yet.</p>
+              <p className="font-general-regular text-primary-dark dark:text-ternary-light">
+                No transactions yet.
+              </p>
             ) : (
-              <ul className="divide-y">
+              <ul className="divide-y divide-gray-200 dark:divide-gray-600">
                 {transactions.map(transaction => (
                   <li key={transaction.id} className="py-3">
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="font-semibold">{transaction.description}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-general-regular font-semibold text-primary-dark dark:text-primary-light">
+                          {transaction.description}
+                        </p>
+                        <p className="font-general-regular text-sm text-ternary-dark dark:text-ternary-light">
                           {transaction.category} • {new Date(transaction.date).toLocaleDateString()}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className={`font-bold ${transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
+                        <p className={`font-general-regular font-bold ${transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}`}>
                           {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toFixed(2)}
                         </p>
-                        <button
-                          onClick={() => handleDelete(transaction.id)}
-                          className="ml-4 text-red-500 hover:text-red-700"
-                        >
-                          Delete
-                        </button>
+                    
                       </div>
                     </div>
                   </li>
@@ -232,8 +247,10 @@ const ExpenseListPage = () => {
 
       {transactions.length > 0 && (
         <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Expense Breakdown</h2>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="font-general-regular text-2xl font-semibold text-secondary-dark dark:text-secondary-light mb-4">
+            Expense Breakdown
+          </h2>
+          <div className="bg-white dark:bg-ternary-dark p-6 rounded-lg shadow-md">
             <div className="h-64">
               <Pie data={getCategoryData()} />
             </div>
