@@ -14,6 +14,13 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Home = lazy(() => import("./pages/Home"));
 const Projects = lazy(() => import("./pages/Projects"));
 const ProjectSingle = lazy(() => import("./pages/ProjectSingle"));
+const Todo = lazy(() => import("./components/projects/todo/TodoView"));
+const Shopsphere = lazy(
+  () => import("./components/projects/shopSphere/ShopSphereView")
+);
+const Moneymind = lazy(
+  () => import("./components/projects/expenseTracker/ExpenseListPage")
+);
 
 function App() {
   return (
@@ -25,6 +32,10 @@ function App() {
           <Suspense fallback={""}>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/productivitypro" element={<Todo />} />
+              <Route path="/shopsphere" element={<Shopsphere />} />
+              <Route path="/moneymind" element={<Moneymind />} />
+
               <Route path="projects" element={<Projects />} />
               <Route
                 path="projects/single-project/:id"

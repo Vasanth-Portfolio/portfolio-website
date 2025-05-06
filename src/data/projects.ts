@@ -1,7 +1,7 @@
 import WebImage1 from "../images/web-project-1.jpg";
-import WebImage2 from "../images/web-project-2.jpg";
 import MobileImage1 from "../images/mobile-project-1.jpg";
 import MobileImage2 from "../images/mobile-project-2.jpg";
+import MobileImage3 from "../images/expense-tracker.png";
 import UIImage1 from "../images/ui-project-1.jpg";
 import UIImage2 from "../images/ui-project-2.jpg";
 
@@ -30,8 +30,8 @@ export const projectsData: Project[] = [
     category: "Web Application",
     img: WebImage1,
     description: "A comprehensive productivity application with AI-powered task management",
-    githubUrl: "https://github.com/yourrepo/todo-pro",
-    demoUrl: "https://demo.productivitypro.app",
+    githubUrl: "https://github.com/Vasanth-Portfolio/todo-pro",
+    demoUrl: "https://vasanth.website/productivitypro",
     technologies: ["React", "Node.js", "MongoDB", "GraphQL"],
     ProjectHeader: {
       title: "Productivity Pro - Todo List",
@@ -41,32 +41,32 @@ export const projectsData: Project[] = [
   },
   {
     id: 2,
-    title: "Phoenix Digital Agency",
-    category: "Mobile Application",
-    img: MobileImage2,
-    description: "Mobile app for a digital agency showcasing their portfolio and services",
-    githubUrl: "https://github.com/yourrepo/phoenix-app",
-    demoUrl: "https://demo.phoenixagency.app",
-    technologies: ["React Native", "Firebase", "TypeScript"],
-    ProjectHeader: {
-      title: "Phoenix Digital Agency App",
-      publishDate: "Feb 10, 2025",
-      tags: "Mobile / Agency Portfolio",
-    },
-  },
-  {
-    id: 3,
     title: "E-Commerce Platform",
     category: "Web Application",
-    img: WebImage2,
+    img: MobileImage2,
     description: "Full-featured e-commerce platform with AR product previews",
-    githubUrl: "https://github.com/yourrepo/ecommerce-platform",
-    demoUrl: "https://demo.shopsphere.app",
-    technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
+    githubUrl: "https://github.com/Vasanth-Portfolio/ecommerce-platform",
+    demoUrl: "https://vasanth.website/shopsphere",
+    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
     ProjectHeader: {
       title: "ShopSphere E-Commerce",
       publishDate: "Jan 20, 2025",
       tags: "Full Stack / E-Commerce",
+    },
+  },
+  {
+    id: 3,
+    title: "Expense Tracker",
+    category: "Web Application",
+    img: MobileImage3,
+    description: "Personal finance application with budgeting and analytics",
+    githubUrl: "https://github.com/Vasanth-Portfolio/expense-tracker",
+    demoUrl: "https://vasanth.website/moneymind",
+    technologies: ["React", "TypeScript", "Node.js", "MongoDB"],
+    ProjectHeader: {
+      title: "MoneyMind Expense Tracker",
+      publishDate: "Apr 10, 2025",
+      tags: "Full Stack / Finance App",
     },
   },
   {
@@ -75,8 +75,8 @@ export const projectsData: Project[] = [
     category: "UI/UX Design",
     img: UIImage2,
     description: "UI/UX design for a cloud storage service with file management",
-    githubUrl: "https://github.com/yourrepo/cloud-storage-ui",
-    demoUrl: "https://figma.com/file/yourdesign",
+    githubUrl: "https://github.com/Vasanth-Portfolio/cloud-storage-ui",
+    demoUrl: "https://vasanth.website/cloudvault",
     technologies: ["Figma", "Adobe XD", "Illustrator"],
     ProjectHeader: {
       title: "CloudVault Storage Platform",
@@ -86,12 +86,12 @@ export const projectsData: Project[] = [
   },
   {
     id: 5,
-    title: "React Social App",
+    title: "Social Media App",
     category: "Mobile Application",
     img: MobileImage1,
     description: "Social networking application built with React Native",
-    githubUrl: "https://github.com/yourrepo/social-app",
-    demoUrl: "https://demo.socialapp.com",
+    githubUrl: "https://github.com/Vasanth-Portfolio/social-app",
+    demoUrl: "https://vasanth.website/connect",
     technologies: ["React Native", "Firebase", "Redux"],
     ProjectHeader: {
       title: "Connect Social App",
@@ -102,11 +102,11 @@ export const projectsData: Project[] = [
   {
     id: 6,
     title: "Design System",
-    category: "Web Application",
+    category: "UI/UX Design",
     img: UIImage1,
     description: "Comprehensive design system for web applications",
-    githubUrl: "https://github.com/yourrepo/design-system",
-    demoUrl: "https://storybook.yourdesignsystem.com",
+    githubUrl: "https://github.com/Vasanth-Portfolio/design-system",
+    demoUrl: "https://vasanth.website/nebula",
     technologies: ["React", "Storybook", "Styled Components"],
     ProjectHeader: {
       title: "Nebula Design System",
