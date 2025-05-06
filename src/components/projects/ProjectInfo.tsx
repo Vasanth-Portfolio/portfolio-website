@@ -114,6 +114,7 @@ const ProjectInfo = () => {
 
         {singleProjectData.id === 2 && <ShopSphereView />}
         {singleProjectData.id === 3 && <ExpenseListPage />}
+
         {/* Social Sharing */}
         {projectInfo.SocialSharing && projectInfo.SocialSharing.length > 0 && (
           <div className="mt-10">

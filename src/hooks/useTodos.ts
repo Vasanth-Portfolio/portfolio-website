@@ -29,7 +29,6 @@ export const useTodos = (): {
 } => {
   const [localError, setLocalError] = useState<TodoError | null>(null);
   
-  // RTK Query hooks
   const {
     data: todos = [],
     isLoading,
