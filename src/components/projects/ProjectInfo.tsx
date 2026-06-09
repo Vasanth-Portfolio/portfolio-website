@@ -1,8 +1,5 @@
 import { useContext } from "react";
 import SingleProjectContext from "../../context/SingleProjectContext";
-import TodoView from "./todo/TodoView";
-import ShopSphereView from "./shopSphere/ShopSphereView";
-import ExpenseListPage from "./expenseTracker/ExpenseListPage";
 
 interface CompanyInfoItem {
   id: number;
@@ -28,9 +25,7 @@ const ProjectInfo = () => {
   const projectInfo = singleProjectData.ProjectInfo;
 
   const renderLink = (info: CompanyInfoItem) => {
-    const isLink = ["Website", "Phone", "Repository", "Demo"].includes(
-      info.title
-    );
+    const isLink = ["Website", "Phone", "Repository", "Demo"].includes(info.title);
     const isEmail = info.title === "Email";
     const href = isEmail
       ? `mailto:${info.details}`
@@ -59,8 +54,8 @@ const ProjectInfo = () => {
 
   return (
     <div className="block sm:flex gap-0 sm:gap-10 mt-14">
+      {/* Left panel — project meta */}
       <div className="w-full sm:w-1/3 text-left">
-        {/* Client details */}
         <div className="mb-7">
           <h2 className="font-general-regular text-2xl font-semibold text-secondary-dark dark:text-secondary-light mb-2">
             {projectInfo.ClientHeading}
@@ -78,7 +73,6 @@ const ProjectInfo = () => {
           </ul>
         </div>
 
-        {/* Project objectives */}
         <div className="mb-7">
           <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-2">
             {projectInfo.ObjectivesHeading}
@@ -88,7 +82,6 @@ const ProjectInfo = () => {
           </p>
         </div>
 
-        {/* Technologies */}
         <div className="mb-7">
           <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-2">
             Technologies Used
@@ -108,16 +101,64 @@ const ProjectInfo = () => {
         </div>
       </div>
 
-      {/* Project details - TodoView */}
+      {/* Right panel — key features + project images + links */}
       <div className="w-full sm:w-2/3 text-left mt-10 sm:mt-0">
-        {singleProjectData.id === 1 && <TodoView />}
 
-        {singleProjectData.id === 2 && <ShopSphereView />}
-        {singleProjectData.id === 3 && <ExpenseListPage />}
+        {/* Project images */}
+        {singleProjectData.ProjectImages && singleProjectData.ProjectImages.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            {singleProjectData.ProjectImages.map((image) => (
+              <div key={image.id} className="rounded-xl overflow-hidden shadow-lg">
+                <img
+                  src={image.img}
+                  alt={image.title}
+                  className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                />
+                <p className="text-center text-sm text-ternary-dark dark:text-ternary-light py-2 px-3 bg-gray-50 dark:bg-gray-800">
+                  {image.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
 
-        {/* Social Sharing */}
+        {/* Key features */}
+        <div className="mb-10">
+          <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-4">
+            {projectInfo.ProjectDetailsHeading}
+          </h2>
+          <div className="space-y-4">
+            {projectInfo.ProjectDetails.map((detail) => {
+              const colonIdx = detail.details.indexOf(":");
+              const hasLabel = colonIdx > 0 && colonIdx < 40;
+              return (
+                <div
+                  key={detail.id}
+                  className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
+                >
+                  {hasLabel ? (
+                    <>
+                      <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                        {detail.details.substring(0, colonIdx)}:
+                      </span>
+                      <span className="font-general-regular text-primary-dark dark:text-ternary-light">
+                        {detail.details.substring(colonIdx + 1)}
+                      </span>
+                    </>
+                  ) : (
+                    <p className="font-general-regular text-primary-dark dark:text-ternary-light">
+                      {detail.details}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Project links */}
         {projectInfo.SocialSharing && projectInfo.SocialSharing.length > 0 && (
-          <div className="mt-10">
+          <div className="mt-6">
             <h2 className="font-general-regular text-2xl font-semibold text-ternary-dark dark:text-ternary-light mb-4 text-center">
               {projectInfo.SocialSharingHeading}
             </h2>
@@ -128,7 +169,7 @@ const ProjectInfo = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-200 rounded-lg hover:bg-indigo-200 dark:hover:bg-indigo-800 transition-colors duration-300"
+                  className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg"
                 >
                   {social.name}
                 </a>
