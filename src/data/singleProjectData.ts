@@ -1,9 +1,6 @@
-import Image1 from '../images/ui-project-1.jpg';
-import Image2 from '../images/web-project-2.jpg';
+import Image1 from '../images/web-project-1.jpg';
+import Image2 from '../images/mobile-project-1.jpg';
 import Image3 from '../images/mobile-project-2.jpg';
-import Image4 from '../images/mobile-project-1.jpg';
-import Image5 from '../images/web-project-1.jpg';
-import Image6 from '../images/ui-project-2.jpg';
 import { JSX, ReactElement } from 'react';
 
 interface ProjectHeader {
@@ -37,7 +34,7 @@ interface ProjectDetail {
 interface SocialSharingItem {
   id: number;
   name: string;
-  icon?: ReactElement | JSX.Element; 
+  icon?: ReactElement | JSX.Element;
   url: string;
 }
 
@@ -72,79 +69,41 @@ export interface SingleProjectData {
   RelatedProject: RelatedProject;
 }
 
-const productivityPro: SingleProjectData = {
+const merkensoft: SingleProjectData = {
   id: 1,
   ProjectHeader: {
-    title: 'Productivity Pro - Todo List',
-    publishDate: 'Mar 15, 2025',
-    tags: 'Full Stack / Productivity App',
+    title: 'Merkensoft — B2B Wholesale Platform',
+    publishDate: 'Jan 2025',
+    tags: 'Full Stack / B2B / React + Rails',
   },
   ProjectImages: [
-    {
-      id: 1,
-      title: 'Todo App Main Interface',
-      img: Image1,
-    },
-    {
-      id: 2,
-      title: 'Mobile Task Management',
-      img: Image2,
-    },
-    {
-      id: 3,
-      title: 'Team Collaboration View',
-      img: Image3,
-    },
+    { id: 1, title: 'Merkensoft Dashboard', img: Image1 },
+    { id: 2, title: 'Inventory Management', img: Image2 },
+    { id: 3, title: 'Vendor Portal', img: Image3 },
   ],
   ProjectInfo: {
     ClientHeading: 'Project Overview',
     CompanyInfo: [
-      {
-        id: 1,
-        title: 'Project Name',
-        details: 'Productivity Pro',
-      },
-      {
-        id: 2,
-        title: 'Category',
-        details: 'Productivity Suite',
-      },
-      {
-        id: 3,
-        title: 'Repository',
-        details: 'github.com/Vasanth-Portfolio/todo-pro',
-      },
-      {
-        id: 4,
-        title: 'Tech Stack',
-        details: 'MERN (MongoDB, Express, React, Node)',
-      },
+      { id: 1, title: 'Project Name', details: 'Merkensoft Wholesale Platform' },
+      { id: 2, title: 'Category', details: 'B2B Web Application' },
+      { id: 3, title: 'Company', details: 'Drylogics Solutions' },
+      { id: 4, title: 'Tech Stack', details: 'React, TypeScript, Ruby on Rails, PostgreSQL' },
     ],
     ObjectivesHeading: 'Project Goals',
     ObjectivesDetails:
-      'Develop a comprehensive productivity application with intelligent task management, team collaboration features, and AI-powered suggestions to optimize personal and professional workflows.',
+      'Build a scalable B2B wholesale platform enabling vendors and buyers to manage products, orders, and inventory with secure role-based access and a seamless React-powered frontend backed by Ruby on Rails APIs.',
     Technologies: [
       {
-        title: 'Core Technologies',
-        techs: [
-          'React 18',
-          'Node.js',
-          'MongoDB Atlas',
-          'GraphQL',
-          'Material UI',
-          'Jest',
-          'Cypress'
-        ],
+        title: 'Frontend',
+        techs: ['React', 'TypeScript', 'Tailwind CSS', 'Material UI'],
       },
       {
-        title: 'Additional Tools',
-        techs: [
-          'OpenAI API',
-          'WebSocket',
-          'Jira Integration',
-          'Google Calendar API',
-          'Stripe Payments'
-        ],
+        title: 'Backend & Database',
+        techs: ['Ruby on Rails', 'PostgreSQL', 'RESTful API', 'JWT Authentication'],
+      },
+      {
+        title: 'DevOps & Tools',
+        techs: ['Git', 'GitHub', 'Render', 'Role-Based Access Control'],
       },
     ],
     ProjectDetailsHeading: 'Key Features',
@@ -152,137 +111,73 @@ const productivityPro: SingleProjectData = {
       {
         id: 1,
         details:
-          'Smart Task Prioritization: Implemented an AI-driven Eisenhower Matrix that automatically categorizes tasks based on urgency and importance, with dynamic reprioritization as deadlines approach.',
+          'User Authentication & RBAC: Implemented secure JWT-based authentication with role-based access control for admin, vendor, and buyer roles, ensuring each user sees only their permitted data and actions.',
       },
       {
         id: 2,
         details:
-          'Cross-Platform Sync: Built a real-time synchronization engine using WebSockets and GraphQL subscriptions, ensuring instant updates across all devices with conflict resolution for offline edits.',
+          'Inventory Management: Built a real-time inventory tracking system allowing vendors to manage stock levels, product listings, and pricing with instant UI updates via RESTful APIs.',
       },
       {
         id: 3,
         details:
-          'Team Workspaces: Developed collaborative spaces with role-based permissions, @mentions, and activity feeds, enabling seamless teamwork with integrated video conferencing via Daily.co API.',
+          'RESTful API Design: Designed and implemented a clean Ruby on Rails API layer handling all frontend-backend communication, with proper validation, error handling, and data serialization.',
       },
       {
         id: 4,
         details:
-          'Productivity Analytics: Created comprehensive dashboards with time tracking integration, habit formation metrics, and personalized improvement suggestions using machine learning models.',
+          'Responsive UI: Crafted a fully responsive interface using Tailwind CSS and Material UI, optimized for both desktop and tablet use by wholesale business operators.',
       },
     ],
     SocialSharingHeading: 'Project Links',
     SocialSharing: [
-      {
-        id: 1,
-        name: 'GitHub Repo',
-        url: 'https://github.com/Vasanth-Portfolio/todo-pro',
-      },
-      {
-        id: 2,
-        name: 'Case Study',
-        url: 'https://vasanth.tech/blog/todo-case-study',
-      },
-      {
-        id: 3,
-        name: 'Live Demo',
-        url: 'https://vasanth.website/productivitypro',
-      },
+      { id: 1, name: 'Live Demo', url: 'https://app-dev.merkensoft.com' },
     ],
   },
   RelatedProject: {
-    title: 'More Productivity Tools',
+    title: 'Other Projects',
     Projects: [
-      {
-        id: 1,
-        title: 'Time Block Planner',
-        img: Image4,
-      },
-      {
-        id: 2,
-        title: 'Meeting Note Taker',
-        img: Image5,
-      },
-      {
-        id: 3,
-        title: 'Focus Timer',
-        img: Image6,
-      },
+      { id: 2, title: 'VendorLine — PlanetBids', img: Image2 },
+      { id: 3, title: 'Greenroom Theatrical Payroll', img: Image3 },
     ],
   },
 };
 
-const eCommercePlatform: SingleProjectData = {
+const vendorLine: SingleProjectData = {
   id: 2,
   ProjectHeader: {
-    title: 'ShopSphere E-Commerce',
-    publishDate: 'Jan 20, 2025',
-    tags: 'Full Stack / E-Commerce',
+    title: 'VendorLine — PlanetBids Platform',
+    publishDate: 'Sep 2024',
+    tags: 'Full Stack / Vendor Management / React + Rails',
   },
   ProjectImages: [
-    {
-      id: 1,
-      title: 'Product Listing Page',
-      img: Image4,
-    },
-    {
-      id: 2,
-      title: 'Shopping Cart',
-      img: Image5,
-    },
-    {
-      id: 3,
-      title: 'Checkout Process',
-      img: Image6,
-    },
+    { id: 1, title: 'VendorLine Dashboard', img: Image2 },
+    { id: 2, title: 'Vendor Onboarding Flow', img: Image1 },
+    { id: 3, title: 'Workflow Management', img: Image3 },
   ],
   ProjectInfo: {
     ClientHeading: 'Project Overview',
     CompanyInfo: [
-      {
-        id: 1,
-        title: 'Project Name',
-        details: 'ShopSphere',
-      },
-      {
-        id: 2,
-        title: 'Category',
-        details: 'E-Commerce Platform',
-      },
-      {
-        id: 3,
-        title: 'Repository',
-        details: 'github.com/Vasanth-Portfolio/shopsphere',
-      },
-      {
-        id: 4,
-        title: 'Tech Stack',
-        details: 'Next.js, Node.js, PostgreSQL',
-      },
+      { id: 1, title: 'Project Name', details: 'VendorLine' },
+      { id: 2, title: 'Platform', details: 'PlanetBids Procurement Platform' },
+      { id: 3, title: 'Company', details: 'Drylogics Solutions' },
+      { id: 4, title: 'Tech Stack', details: 'React, Ruby on Rails, PostgreSQL' },
     ],
     ObjectivesHeading: 'Project Goals',
     ObjectivesDetails:
-      'Build a scalable e-commerce platform with modern features like AI-powered recommendations, AR product previews, and seamless checkout experience.',
+      'Develop and enhance the VendorLine module within the PlanetBids procurement platform, streamlining vendor onboarding, management workflows, and integration with the broader platform ecosystem.',
     Technologies: [
       {
-        title: 'Core Technologies',
-        techs: [
-          'Next.js',
-          'Node.js',
-          'PostgreSQL',
-          'Redis',
-          'Tailwind CSS',
-          'Jest'
-        ],
+        title: 'Frontend',
+        techs: ['React', 'TypeScript', 'Tailwind CSS'],
       },
       {
-        title: 'Additional Tools',
-        techs: [
-          'Stripe API',
-          'Cloudinary',
-          'Algolia Search',
-          'WebRTC',
-          'Three.js'
-        ],
+        title: 'Backend & Database',
+        techs: ['Ruby on Rails', 'PostgreSQL', 'RESTful API'],
+      },
+      {
+        title: 'Tools',
+        techs: ['Git', 'GitHub', 'Render', 'Agile/Scrum'],
       },
     ],
     ProjectDetailsHeading: 'Key Features',
@@ -290,127 +185,73 @@ const eCommercePlatform: SingleProjectData = {
       {
         id: 1,
         details:
-          'AI Recommendations: Implemented a machine learning model that suggests products based on browsing history and purchase patterns.',
+          'Vendor Onboarding: Built streamlined vendor registration and onboarding flows with multi-step forms and approval workflows integrated into the PlanetBids ecosystem.',
       },
       {
         id: 2,
         details:
-          'AR Product Previews: Integrated WebXR for augmented reality product visualization directly in the browser.',
+          'Workflow Automation: Implemented vendor management workflows to automate routine procurement steps, reducing manual effort and improving process reliability.',
       },
       {
         id: 3,
         details:
-          'Instant Checkout: Developed a one-click checkout system with biometric authentication for returning customers.',
+          'Platform Integration: Integrated VendorLine features with the broader PlanetBids platform APIs, ensuring seamless data flow and consistent user experience.',
+      },
+      {
+        id: 4,
+        details:
+          'Iterative Delivery: Delivered stable, production-ready features in iterative sprints using Git branching workflows and collaborative code reviews.',
       },
     ],
     SocialSharingHeading: 'Project Links',
     SocialSharing: [
-      {
-        id: 1,
-        name: 'GitHub Repo',
-        url: 'https://github.com/Vasanth-Portfolio/shopsphere',
-      },
-      {
-        id: 2,
-        name: 'Live Demo',
-        url: 'https://vasanth.website/shopsphere',
-      },
+      { id: 1, name: 'Live Environment', url: 'https://vendorline.dev.preprod.planetbids.com' },
     ],
   },
   RelatedProject: {
-    title: 'More E-Commerce Projects',
+    title: 'Other Projects',
     Projects: [
-      {
-        id: 1,
-        title: 'Marketplace API',
-        img: Image1,
-      },
-      {
-        id: 2,
-        title: 'POS System',
-        img: Image2,
-      },
-      {
-        id: 3,
-        title: 'Inventory Manager',
-        img: Image3,
-      },
+      { id: 1, title: 'Merkensoft Wholesale Platform', img: Image1 },
+      { id: 3, title: 'Greenroom Theatrical Payroll', img: Image3 },
     ],
   },
 };
 
-const expenseTracker: SingleProjectData = {
+const greenroom: SingleProjectData = {
   id: 3,
   ProjectHeader: {
-    title: 'MoneyMind Expense Tracker',
-    publishDate: 'Apr 10, 2025',
-    tags: 'Full Stack / Finance App',
+    title: 'Greenroom — Theatrical Payroll Platform',
+    publishDate: 'May 2024',
+    tags: 'Full Stack / Payroll / React + Rails',
   },
   ProjectImages: [
-    {
-      id: 1,
-      title: 'Expense Dashboard',
-      img: Image1,
-    },
-    {
-      id: 2,
-      title: 'Transaction History',
-      img: Image2,
-    },
-    {
-      id: 3,
-      title: 'Mobile Expense Tracking',
-      img: Image3,
-    },
+    { id: 1, title: 'Payroll Dashboard', img: Image3 },
+    { id: 2, title: 'Union Management', img: Image1 },
+    { id: 3, title: 'Reporting Interface', img: Image2 },
   ],
   ProjectInfo: {
     ClientHeading: 'Project Overview',
     CompanyInfo: [
-      {
-        id: 1,
-        title: 'Project Name',
-        details: 'MoneyMind',
-      },
-      {
-        id: 2,
-        title: 'Category',
-        details: 'Personal Finance',
-      },
-      {
-        id: 3,
-        title: 'Repository',
-        details: 'github.com/Vasanth-Portfolio/expense-tracker',
-      },
-      {
-        id: 4,
-        title: 'Tech Stack',
-        details: 'React, TypeScript, Express, MongoDB',
-      },
+      { id: 1, title: 'Project Name', details: 'Greenroom' },
+      { id: 2, title: 'Category', details: 'Theatrical Payroll Processing' },
+      { id: 3, title: 'Company', details: 'Drylogics Solutions / Tabletop Labs' },
+      { id: 4, title: 'Tech Stack', details: 'React, TypeScript, Ruby on Rails, PostgreSQL' },
     ],
     ObjectivesHeading: 'Project Goals',
     ObjectivesDetails:
-      'Develop an intuitive expense tracking application with comprehensive financial insights, visualization tools, and multi-device synchronization to help users manage their finances effectively.',
+      'Develop a specialized payroll processing platform for theatrical productions, handling complex multi-union rules, diverse payment types, and industry-specific compliance reporting requirements.',
     Technologies: [
       {
-        title: 'Core Technologies',
-        techs: [
-          'React 18',
-          'TypeScript',
-          'Express.js',
-          'MongoDB',
-          'Tailwind CSS',
-          'Chart.js'
-        ],
+        title: 'Frontend',
+        techs: ['React', 'TypeScript', 'Tailwind CSS', 'Material UI'],
       },
       {
-        title: 'Additional Features',
-        techs: [
-          'JWT Authentication',
-          'Data Export (CSV/PDF)',
-          'Recurring Transactions',
-          'Budget Alerts',
-          'Responsive Design'
-        ],
+        title: 'Backend & Database',
+        techs: ['Ruby on Rails', 'PostgreSQL', 'RESTful API', 'Business Logic Engine'],
+      },
+      {
+        title: 'Tools',
+        techs: ['Git', 'GitHub', 'Render'],
       },
     ],
     ProjectDetailsHeading: 'Key Features',
@@ -418,75 +259,46 @@ const expenseTracker: SingleProjectData = {
       {
         id: 1,
         details:
-          'Transaction Management: Implemented a robust system for adding, editing, and categorizing income/expense transactions with support for attachments and notes.',
+          'Multi-Union Management: Implemented support for multiple theatrical unions each with their own payment rules, rates, and compliance requirements.',
       },
       {
         id: 2,
         details:
-          'Financial Dashboard: Created interactive charts using Chart.js to visualize spending patterns, category breakdowns, and monthly comparisons.',
+          'Diverse Payment Types: Built a flexible payment processing system supporting daily rates, weekly rates, overtime calculations, and union-specific allowances.',
       },
       {
         id: 3,
         details:
-          'Budget Tracking: Developed a budget management system with alerts and progress tracking against user-defined financial goals.',
+          'Compliance Reporting: Developed industry-specific reporting workflows generating union-compliant payroll reports, tax documents, and audit trails.',
       },
       {
         id: 4,
         details:
-          'Multi-Device Sync: Built a secure synchronization system using JWT authentication and RESTful APIs to ensure data consistency across devices.',
+          'Scalable Business Logic: Designed a rules engine in Ruby on Rails to handle complex payroll calculations, ensuring accuracy and extensibility as production requirements evolve.',
       },
     ],
     SocialSharingHeading: 'Project Links',
     SocialSharing: [
-      {
-        id: 1,
-        name: 'GitHub Repo',
-        url: 'https://github.com/Vasanth-Portfolio/expense-tracker',
-      },
-      {
-        id: 2,
-        name: 'Live Demo',
-        url: 'https://vasanth.website/moneymind',
-      },
+      { id: 1, name: 'Live Demo', url: 'https://app.greenroom-dev.tabletoplabs.studio' },
     ],
   },
   RelatedProject: {
-    title: 'More Finance Tools',
+    title: 'Other Projects',
     Projects: [
-      {
-        id: 1,
-        title: 'Investment Tracker',
-        img: Image4,
-      },
-      {
-        id: 2,
-        title: 'Bill Reminder',
-        img: Image5,
-      },
-      {
-        id: 3,
-        title: 'Tax Calculator',
-        img: Image6,
-      },
+      { id: 1, title: 'Merkensoft Wholesale Platform', img: Image1 },
+      { id: 2, title: 'VendorLine — PlanetBids', img: Image2 },
     ],
   },
 };
 
-export const allProjects: SingleProjectData[] = [
-  productivityPro,
-  eCommercePlatform,
-  expenseTracker
-];
+export const allProjects: SingleProjectData[] = [merkensoft, vendorLine, greenroom];
 
 export function getProjectById(id: number): SingleProjectData {
-  const project = allProjects.find(project => project.id === id);
-  
+  const project = allProjects.find(p => p.id === id);
   if (!project) {
-    console.warn(`Project with ID ${id} not found, returning first project`);
     return allProjects[0];
   }
-  
   return project;
 }
 
-export const singleProjectData = productivityPro;
+export const singleProjectData = merkensoft;

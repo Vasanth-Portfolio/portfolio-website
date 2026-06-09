@@ -8,7 +8,7 @@ interface AboutMeItem {
 export const aboutMeData: AboutMeItem[] = [
   {
     id: 1,
-    bio: "I'm a React.js developer specializing in Material UI (MUI) and Tailwind CSS, with experience in Ruby for automation. I build fast, responsive, and visually polished web applications while optimizing performance and maintainability.",
+    bio: "I'm a Full Stack Developer with 2+ years of experience building production web applications using React, TypeScript, and Ruby on Rails. I deliver end-to-end features — from responsive UIs with Tailwind CSS and Material UI to RESTful APIs and PostgreSQL-backed backends — across B2B, vendor management, and payroll platforms.",
   },
   {
     id: 2,
@@ -19,11 +19,11 @@ export const aboutMeData: AboutMeItem[] = [
         </h3>
         <ul className="space-y-3 pl-5 mb-6">
           {[
-            "Develop high-performance UIs with React, Next.js, and TypeScript",
-            "Craft pixel-perfect designs using MUI + Tailwind CSS",
-            "Optimize apps (reduced bundle sizes by 30%+ via code-splitting & lazy loading)",
-            "Integrate REST/GraphQL APIs with Redux & React Query",
-            "Mentor junior developers in React best practices",
+            "Build full-stack applications with React + TypeScript frontend and Ruby on Rails backend",
+            "Design and implement RESTful APIs with authentication and role-based access control",
+            "Craft responsive, pixel-perfect UIs using Tailwind CSS and Material UI",
+            "Manage PostgreSQL databases with ActiveRecord and write clean migrations",
+            "Deploy and maintain production applications on Render with Git-based workflows",
           ].map((item, index) => (
             <li
               key={index}
@@ -40,12 +40,14 @@ export const aboutMeData: AboutMeItem[] = [
         <div className="flex flex-wrap gap-3 mb-6">
           {[
             "React",
-            "Next.js",
             "TypeScript",
-            "MUI",
+            "Ruby on Rails",
+            "PostgreSQL",
             "Tailwind CSS",
-            "Redux",
-            "Ruby (RSpec/Capybara)",
+            "Material UI",
+            "REST API",
+            "Git & GitHub",
+            "Render",
           ].map((tech) => (
             <span
               key={tech}
@@ -57,8 +59,7 @@ export const aboutMeData: AboutMeItem[] = [
         </div>
 
         <blockquote className="mt-8 italic border-l-4 border-blue-500 pl-6 py-2 bg-gray-50 dark:bg-gray-800 rounded-r-lg text-gray-700 dark:text-gray-300">
-          "I build interfaces that users love—smooth, intuitive, and invisible
-          in their simplicity."
+          "I own the full stack — from the UI a user sees to the API that powers it."
         </blockquote>
       </>
     ),
