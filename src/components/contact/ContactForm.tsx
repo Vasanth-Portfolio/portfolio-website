@@ -9,9 +9,8 @@ interface ToastData {
 }
 
 const OWNER_EMAIL = "vasanthvinv@gmail.com";
-// Set VITE_WEB3FORMS_KEY in your Render environment variables.
-// Get a free key at https://web3forms.com (enter your email, they send the key instantly).
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined)
+  ?? "ea28d5a5-0db5-424d-a3fc-46d7f4fdee93";
 
 const ContactForm = () => {
   const form = useRef<HTMLFormElement>(null);
