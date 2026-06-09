@@ -1,5 +1,4 @@
 import { useRef, useState, FormEvent } from "react";
-import emailjs from "emailjs-com";
 import Button from "../reusable/Button";
 import FormInput from "../reusable/FormInput";
 import Toast from "../reusable/Toast";
@@ -9,42 +8,105 @@ interface ToastData {
   type: "success" | "error";
 }
 
+const OWNER_EMAIL = "vasanthvinv@gmail.com";
+// Set VITE_WEB3FORMS_KEY in your Render environment variables.
+// Get a free key at https://web3forms.com (enter your email, they send the key instantly).
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+
 const ContactForm = () => {
   const form = useRef<HTMLFormElement>(null);
   const [toast, setToast] = useState<ToastData | null>(null);
   const [visible, setVisible] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const sendEmail = (e: FormEvent) => {
-    e.preventDefault();
+  const showToast = (message: string, type: "success" | "error") => {
+    setToast({ message, type });
+    setVisible(true);
+    setTimeout(() => setVisible(false), 5000);
+  };
 
-    if (!form.current) return;
+  const sendViaWeb3Forms = async (data: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+  }) => {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        from_name: data.name,
+        email: data.email,
+        subject: data.subject || "Portfolio Contact",
+        message: data.message,
+      }),
+    });
+    const json = await res.json();
+    if (!res.ok || !json.success) throw new Error(json.message || "Web3Forms failed");
+  };
 
-    const formData = new FormData(form.current);
-    formData.append("time", new Date().toLocaleString());
-
-    emailjs.sendForm(
+  const sendViaEmailJS = async (formEl: HTMLFormElement) => {
+    const { default: emailjs } = await import("emailjs-com");
+    const result = await emailjs.sendForm(
       "service_mw940vl",
       "template_kz5lu8d",
-      form.current,
+      formEl,
       "6_gbGm0uk7QizkzOM"
-    )
-      .then(() => {
-        setToast({
-          message: "Message sent successfully! 🚀",
-          type: "success"
-        });
-        setVisible(true);
-        form.current?.reset();
-      })
-      .catch(() => {
-        setToast({
-          message: "Failed to send message. Please try again.",
-          type: "error"
-        });
-        setVisible(true);
-      });
+    );
+    if (result.status !== 200) throw new Error("EmailJS failed");
+  };
 
-    setTimeout(() => setVisible(false), 3000);
+  const sendEmail = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!form.current || sending) return;
+
+    const data = {
+      name: (form.current.elements.namedItem("name") as HTMLInputElement)?.value?.trim(),
+      email: (form.current.elements.namedItem("email") as HTMLInputElement)?.value?.trim(),
+      subject: (form.current.elements.namedItem("subject") as HTMLInputElement)?.value?.trim(),
+      message: (form.current.elements.namedItem("message") as HTMLTextAreaElement)?.value?.trim(),
+    };
+
+    if (!data.name || !data.email || !data.message) {
+      showToast("Please fill in your name, email, and message.", "error");
+      return;
+    }
+
+    setSending(true);
+
+    try {
+      // Try Web3Forms first (more reliable, no monthly cap)
+      if (WEB3FORMS_KEY) {
+        await sendViaWeb3Forms(data);
+      } else {
+        // Fall back to EmailJS if no Web3Forms key configured
+        await sendViaEmailJS(form.current);
+      }
+      showToast("Message sent! I'll get back to you soon.", "success");
+      form.current.reset();
+    } catch (primaryError) {
+      // If Web3Forms key exists but failed, try EmailJS as second fallback
+      if (WEB3FORMS_KEY) {
+        try {
+          await sendViaEmailJS(form.current);
+          showToast("Message sent! I'll get back to you soon.", "success");
+          form.current.reset();
+        } catch {
+          showToast(
+            `Couldn't send automatically. Email me directly at ${OWNER_EMAIL}`,
+            "error"
+          );
+        }
+      } else {
+        showToast(
+          `Couldn't send automatically. Email me directly at ${OWNER_EMAIL}`,
+          "error"
+        );
+      }
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -104,12 +166,21 @@ const ContactForm = () => {
             ></textarea>
           </div>
 
-          <div className="font-general-medium w-40 px-4 py-2.5 text-white text-center font-medium tracking-wider bg-indigo-500 hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg mt-6 duration-500">
-            <Button
-              title="Send Message"
-              type="submit"
-              aria-label="Send Message"
-            />
+          <div className="mt-6 flex items-center gap-4">
+            <div className="font-general-medium w-40 px-4 py-2.5 text-white text-center font-medium tracking-wider bg-indigo-500 hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg duration-500 disabled:opacity-60 disabled:cursor-not-allowed">
+              <Button
+                title={sending ? "Sending..." : "Send Message"}
+                type="submit"
+                aria-label="Send Message"
+              />
+            </div>
+            {/* Always-visible direct email fallback */}
+            <a
+              href={`mailto:${OWNER_EMAIL}`}
+              className="text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+            >
+              or email directly
+            </a>
           </div>
         </form>
       </div>
